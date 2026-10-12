@@ -2,7 +2,7 @@
 import tkinter as tk
 from viewport import Viewport
 import math
-
+from grid import GridRenderer
 
 WIDTH = 1500
 HEIGHT = 1000
@@ -31,117 +31,20 @@ canvas.pack(fill=tk.BOTH, expand=True)
 origin_x = WIDTH / 2
 origin_y = HEIGHT / 2
 
-
+renderer = GridRenderer(canvas, viewport)
 
 
 def draw_grid():
-    canvas.delete("all")
-
-    width = canvas.winfo_width()
-    height = canvas.winfo_height()
-
-    left, top = viewport.screen_to_math(0, 0)
-    right, bottom = viewport.screen_to_math(width, height)
-
-    spacing = viewport.get_grid_spacing()
-
-    # Vertical grid lines
-    start_x = math.ceil(left / spacing)
-    end_x = math.floor(right / spacing)
-
-    
-    for i in range(start_x, end_x + 1):
-        x = i * spacing
-
-        screen_x, _ = viewport.math_to_screen(x, 0)
-
-        # Draw vertical grid line
-        canvas.create_line(
-            screen_x, 0,
-            screen_x, height,
-            fill="#334155"
-        )
-
-        # Draw coordinate label
-        if i != 0:
-            label_y = max(
-                15,
-                min(height - 15, viewport.origin_y + 18)
-            )
-
-            canvas.create_text(
-                screen_x,
-                label_y,
-                text=format_coordinate(x),
-                fill="white",
-                font=("Arial", 10),
-                anchor="center"
-            )
+    renderer.draw()
 
 
 
-   
 
-    # Horizontal grid lines
-    start_y = math.ceil(bottom / spacing)
-    end_y = math.floor(top / spacing)
+def handle_resize(event):
+    viewport.width = event.width
+    viewport.height = event.height
 
-    
-    for i in range(start_y, end_y + 1):
-        y = i * spacing
-
-        _, screen_y = viewport.math_to_screen(0, y)
-
-        # Draw horizontal grid line
-        canvas.create_line(
-            0, screen_y,
-            width, screen_y,
-            fill="#334155"
-        )
-
-        # Draw coordinate label
-        if i != 0:
-            label_x = max(
-                25,
-                min(width - 25, viewport.origin_x - 20)
-            )
-
-            canvas.create_text(
-                label_x,
-                screen_y,
-                text=format_coordinate(y),
-                fill="white",
-                font=("Arial", 10),
-                anchor="e"
-            )
-
-
-
-    # Draw axes
-    origin_x, origin_y = viewport.math_to_screen(0, 0)
-
-    if 0 <= origin_x <= width and 0 <= origin_y <= height:
-        canvas.create_text(
-            origin_x + 12,
-            origin_y + 15,
-            text="0",
-            fill="white",
-            font=("Arial", 10)
-        )
-    
-
-    canvas.create_line(
-        0, origin_y,
-        width, origin_y,
-        fill="white", width=2
-    )
-
-    canvas.create_line(
-        origin_x, 0,
-        origin_x, height,
-        fill="white", width=2
-    )
-
+    draw_grid()
 
 
 def format_coordinate(value):

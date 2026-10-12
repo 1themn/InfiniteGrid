@@ -45,7 +45,7 @@ class Viewport:
         ) * ratio
 
         self.scale = new_scale
-        
+
     def get_grid_spacing(self, target_pixels=75):
         # Ideal mathematical spacing
         raw_spacing = target_pixels / self.scale
@@ -69,4 +69,16 @@ class Viewport:
             nice_spacing = 10
 
         return nice_spacing * magnitude
+    
+
+    def get_visible_bounds(self):
+        left, top = self.screen_to_math(0, 0)
+
+        right, bottom = self.screen_to_math(
+            self.width,
+            self.height
+        )
+
+        return left, right, bottom, top
+
 
