@@ -1,5 +1,4 @@
 # InfiniteGrid
-
 InfiniteGrid is an interactive Cartesian coordinate grid built from scratch with **Python and Tkinter**. It supports dragging to move around the plane, zooming around the cursor, and automatically adjusting grid lines and coordinate labels as the view changes.
 
 The goal of this project was to understand the mathematics and rendering logic behind an interactive graph, rather than rely on a plotting library to draw the grid.
