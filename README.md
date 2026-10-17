@@ -155,8 +155,6 @@ Even when the selected interval doesn't change, the pixel positions of the lines
 - **Tkinter Canvas** — drawing the grid and handling interaction
 - **Python `math` module** — logarithms, rounding, and grid intervals
 
-> **Note:** The snippets above explain the main ideas and may differ slightly from the exact method names and event handlers in the current project files.
-
 ## What's Next?
 
 **MathVision** will use InfiniteGrid as its interactive coordinate plane for plotting mathematical equations.
