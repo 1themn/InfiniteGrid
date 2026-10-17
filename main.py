@@ -151,5 +151,5 @@ canvas.bind("<MouseWheel>", handle_mouse_zoom)
 canvas.bind("<Button-4>", handle_mouse_zoom)
 canvas.bind("<Button-5>", handle_mouse_zoom)
 
-
+canvas.bind("<Configure>", handle_resize)
 root.mainloop()
